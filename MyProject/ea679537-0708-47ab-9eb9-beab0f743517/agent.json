@@ -1,0 +1,75 @@
+{
+  "version": "1.2.0",
+  "settings": {
+    "model": "gpt-5.4",
+    "maxTokens": 16384,
+    "temperature": 0,
+    "engine": "basic-v2",
+    "maxIterations": 25,
+    "mode": "standard"
+  },
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "var_RetrievedChunks": {
+        "type": "array",
+        "items": {}
+      },
+      "var_UserQuery": {
+        "type": "string"
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "answer": {
+        "type": "string"
+      }
+    }
+  },
+  "metadata": {
+    "storageVersion": "50.0.0",
+    "isConversational": false,
+    "showProjectCreationExperience": false
+  },
+  "type": "lowCode",
+  "guardrails": [],
+  "messages": [
+    {
+      "role": "system",
+      "content": "Answer strictly from the supplied retrieved chunks. Do not use outside knowledge. If the answer is not supported by the chunks, say that the provided context does not contain the answer. Cite factual claims using exactly [document_name, Page/Row X], using the document_name and page_number from a chunk. Return a result conforming to the output schema. answer: the cited answer.",
+      "contentTokens": [
+        {
+          "type": "simpleText",
+          "rawString": "Answer strictly from the supplied retrieved chunks. Do not use outside knowledge. If the answer is not supported by the chunks, say that the provided context does not contain the answer. Cite factual claims using exactly [document_name, Page/Row X], using the document_name and page_number from a chunk. Return a result conforming to the output schema. answer: the cited answer."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Retrieved chunks:\n{{input.var_RetrievedChunks}}\n\nQuestion:\n{{input.var_UserQuery}}",
+      "contentTokens": [
+        {
+          "type": "simpleText",
+          "rawString": "Retrieved chunks:\n"
+        },
+        {
+          "type": "variable",
+          "rawString": "input.var_RetrievedChunks"
+        },
+        {
+          "type": "simpleText",
+          "rawString": "\n\nQuestion:\n"
+        },
+        {
+          "type": "variable",
+          "rawString": "input.var_UserQuery"
+        }
+      ]
+    }
+  ],
+  "projectId": "ea679537-0708-47ab-9eb9-beab0f743517",
+  "id": "ea679537-0708-47ab-9eb9-beab0f743517",
+  "name": "RAG Answer Agent"
+}

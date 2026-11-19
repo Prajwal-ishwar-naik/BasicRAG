@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "MyProject",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "debb0590-0804-458b-9973-a25508e827a1",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "MyProject"
+    },
+    "locks": [],
+    "key": "f3888fbe-a6ac-46b3-a539-7acdd04f7e65",
+    "files": []
+  }
+}

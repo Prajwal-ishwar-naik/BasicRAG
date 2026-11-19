@@ -1,0 +1,2579 @@
+{
+  "id": "dbc6fd09-8cab-406a-83bf-7f26afd5336b",
+  "version": "1.9",
+  "name": "MyProject",
+  "runtime": "maestro",
+  "nodes": [
+    {
+      "id": "ManualTrigger",
+      "type": "core.trigger.manual",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "Manual Trigger",
+        "icon": "play"
+      },
+      "inputs": {
+        "entryPointId": "97e26dec-b137-4f39-b9d8-99df3cf4d27e"
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "uniqueId": "c54ac4f6-5a67-48a3-bf3f-444232c88888"
+    },
+    {
+      "id": "EmbedAndStoreInQdrant",
+      "type": "core.action.http.v2",
+      "typeVersion": "2.6",
+      "display": {
+        "label": "Embed and Store in Qdrant",
+        "subLabel": "",
+        "icon": "https://cloud.uipath.com/elements_/scaleunit_/58cb4f17-4581-4130-a2ae-52448b37dc03/v3/element/elements/uipath-uipath-http/image"
+      },
+      "inputs": {
+        "branches": [],
+        "timeout": "PT15M",
+        "retryCount": 0,
+        "detail": {
+          "connector": "uipath-uipath-http",
+          "connectionId": "ImplicitConnection",
+          "connectionResourceId": null,
+          "connectionFolderKey": null,
+          "method": "POST",
+          "endpoint": "/http-request",
+          "bodyParameters": {
+            "authentication": "manual",
+            "method": "POST",
+            "url": "https://YOUR_PUBLIC_API_HOST/ingest",
+            "requestBodyType": "raw",
+            "body": "=js:({\n        data_source_type: $vars.ManualTrigger.output.in_DataSourceType,\n        data_source_value: $vars.ManualTrigger.output.in_DataSourceValue\n      })",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "objectName": "http-request",
+          "configuration": "=jsonString:{\"essentialConfiguration\":{\"responseAsFile\":false,\"connectorVersion\":\"1.5.4\",\"scriptRef\":null,\"customFieldsRequestDetails\":null,\"instanceParameters\":{\"connectorKey\":\"uipath-uipath-http\",\"objectName\":\"http-request\",\"httpMethod\":\"POST\",\"activityType\":\"Curated\",\"version\":\"1.0.0\"},\"objectName\":\"http-request\",\"operation\":\"create\",\"packageVersion\":\"1.0.0\",\"httpMethod\":\"POST\",\"path\":\"/http-request\",\"unifiedTypesCompatible\":true,\"savedJitInputFieldId\":\"in_http-request\"},\"optionalConfiguration\":{\"_textBlocks\":[{\"name\":\"contentTypeNotice\",\"text\":\"The content-type header must be application/json.\",\"position\":\"above\"}],\"objectActions\":[],\"connectorName\":\"HTTP\",\"agentIdentity\":null,\"maxPageSize\":100,\"jobArguments\":null,\"isAutopilotInvalidConfig\":false,\"additionalHeaders\":null,\"cachedLookupValues\":[],\"cachedBrowserItems\":[],\"cachedPropertyMappings\":[],\"primaryKeys\":[],\"objectDisplayName\":\"HTTP Request\",\"eventMode\":null,\"eventOperation\":null,\"hasBreakingChanges\":false,\"fieldsContainer\":{\"outputTypeDefinition\":\"{\\\"body\\\":object;\\\"code\\\":number;\\\"method\\\":string;\\\"rawStringBody\\\":string;\\\"request\\\":{\\\"headers\\\":object;\\\"methodType\\\":string;\\\"query\\\":object;\\\"type\\\":string;\\\"url\\\":string}}\",\"outputJsonSchema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"method\":{\"title\":\"Method\",\"type\":\"string\",\"description\":\"Specifies the HTTP method to be used for the request.\"},\"body\":{\"title\":\"Body\",\"$ref\":\"#/definitions/body\"},\"code\":{\"title\":\"Code\",\"type\":\"integer\",\"description\":\"The Code\"},\"rawStringBody\":{\"title\":\"Raw body\",\"type\":\"string\",\"description\":\"The Raw string body\"},\"request\":{\"title\":\"Request\",\"$ref\":\"#/definitions/request\"}},\"definitions\":{\"body\":{\"type\":\"object\",\"properties\":{}},\"request\":{\"type\":\"object\",\"properties\":{\"type\":{\"title\":\"Request type\",\"type\":\"string\",\"description\":\"The Request type\"},\"url\":{\"title\":\"Request url\",\"type\":\"string\",\"description\":\"The Request url\"},\"methodType\":{\"title\":\"Method\",\"type\":\"string\",\"description\":\"The Request method type\"}}}}},\"hasFileOutput\":false,\"populateOutputFields\":true,\"inputFields\":[{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"authentication\",\"name\":\"authentication\",\"displayName\":\"Authentication\",\"description\":\"Authentication\",\"type\":\"string\",\"sortOrder\":1,\"defaultValue\":\"manual\",\"primaryKey\":false,\"enum\":[{\"name\":\"Manual authentication\",\"value\":\"manual\",\"description\":\"Provide authentication details directly in the request\"},{\"name\":\"Connector based authentication\",\"value\":\"connector\",\"description\":\"Use authentication details from a configured connector\"}],\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"showMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]},{\"actionType\":\"clearMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]}],\"textBlocks\":[{\"name\":\"contentTypeNotice\",\"text\":\"The content-type header must be application/json.\",\"position\":\"above\"}],\"validation\":false},\"fieldActions\":[{\"actionType\":\"showMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]},{\"actionType\":\"clearMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"targetConnector\",\"name\":\"targetConnector\",\"displayName\":\"Connector\",\"description\":\"Select a connector\",\"type\":\"string\",\"sortOrder\":2,\"primaryKey\":false,\"lookup\":{\"objectName\":\"connectors\",\"lookupNames\":[\"name\"],\"lookupValue\":\"key\",\"path\":\"/Connectors?hasHttpRequest=true\",\"orderBy\":\"NONE\",\"defaultLookupValues\":[{\"name\":\"HTTP\",\"key\":\"uipath-uipath-http\",\"priority\":1,\"isDefault\":true,\"description\":\"UiPath HTTP connector for general API requests\"}]},\"design\":{\"component\":\"Connectors\",\"loadByDefault\":true,\"isMultiSelect\":false,\"enableUserOverride\":false,\"displayPattern\":\"{name}\",\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"solutionResourceKind\":\"connector\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"connection\",\"name\":\"connection\",\"displayName\":\"Connection\",\"description\":\"Connections\",\"type\":\"string\",\"sortOrder\":3,\"primaryKey\":false,\"design\":{\"component\":\"Connections\",\"loadByDefault\":true,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"refFieldValues\":[\"*\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"solutionResourceKind\":\"connection\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"refFieldValues\":[\"*\"],\"isCleared\":true,\"isVariable\":false}]},{\"rules\":[{\"refFieldName\":\"targetConnector\",\"refFieldValues\":[\"*\"],\"isCleared\":false,\"isConstantValue\":false,\"isWorkflowExpression\":false}],\"actionType\":\"grabValue\",\"groupNames\":[],\"messages\":null}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"method\",\"name\":\"method\",\"displayName\":\"Method\",\"description\":\"Specifies the HTTP method to be used for the request.\",\"type\":\"string\",\"sortOrder\":4,\"defaultValue\":\"GET\",\"primaryKey\":false,\"enum\":[{\"name\":\"GET\",\"value\":\"GET\"},{\"name\":\"POST\",\"value\":\"POST\"},{\"name\":\"PUT\",\"value\":\"PUT\"},{\"name\":\"PATCH\",\"value\":\"PATCH\"},{\"name\":\"DELETE\",\"value\":\"DELETE\"},{\"name\":\"OPTIONS\",\"value\":\"OPTIONS\"},{\"name\":\"HEAD\",\"value\":\"HEAD\"}],\"design\":{\"loadByDefault\":true,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"position\":\"primary\",\"validation\":false},\"fieldActions\":null,\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":true,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"url\",\"name\":\"url\",\"displayName\":\"URL\",\"description\":\"The web address where the HTTP request is sent.\",\"type\":\"string\",\"sortOrder\":5,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"path\",\"name\":\"path\",\"displayName\":\"Path\",\"description\":\"The endpoint path for the REST API request.\",\"type\":\"string\",\"sortOrder\":5,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"headers\",\"name\":\"headers\",\"displayName\":\"Headers\",\"description\":\"Headers\",\"type\":\"object\",\"sortOrder\":6,\"primaryKey\":false,\"design\":{\"component\":\"Dictionary\",\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"position\":\"primary\",\"dictionaryWidget\":{\"windowTitle\":\"\",\"windowDescription\":\"\",\"columnKeyTitle\":\"\",\"columnKeyDescription\":\"\",\"columnKeyHint\":\"\",\"columnValueTitle\":\"\",\"columnValueDescription\":\"\",\"columnValueHint\":\"\"},\"validation\":false},\"fieldActions\":null,\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":true,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"query\",\"name\":\"query\",\"displayName\":\"Query parameters\",\"description\":\"Query parameters\",\"type\":\"object\",\"sortOrder\":7,\"primaryKey\":false,\"design\":{\"component\":\"Dictionary\",\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"position\":\"primary\",\"dictionaryWidget\":{\"windowTitle\":\"\",\"windowDescription\":\"\",\"columnKeyTitle\":\"\",\"columnKeyDescription\":\"\",\"columnKeyHint\":\"\",\"columnValueTitle\":\"\",\"columnValueDescription\":\"\",\"columnValueHint\":\"\"},\"validation\":false},\"fieldActions\":null,\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":true,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"requestBodyType\",\"name\":\"requestBodyType\",\"displayName\":\"Request body type\",\"description\":\"Determines how the request body is encoded. Available for manual authentication only; connector-based requests remain JSON.\",\"type\":\"string\",\"sortOrder\":8,\"defaultValue\":\"raw\",\"primaryKey\":false,\"enum\":[{\"name\":\"Raw\",\"value\":\"raw\",\"description\":\"Send the body as-is using the Content-Type header (e.g. JSON, XML, plain text).\"},{\"name\":\"Multipart form data\",\"value\":\"multipartFormData\",\"description\":\"Send one or more form-data parts encoded as multipart/form-data.\"}],\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"body\",\"name\":\"body\",\"displayName\":\"Body\",\"description\":\"Contains the data to be sent with the HTTP request.\",\"type\":\"object\",\"sortOrder\":9,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":true,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"multipartFormData\",\"name\":\"multipartFormData\",\"displayName\":\"Form data parts\",\"description\":\"Multipart form-data parts. Provide a list of parts; each part is an object with 'name' (required), 'value' (required), and optional 'filename', 'contentType' and 'encoding'. A value that is an attachment reference is sent as a file; set encoding to 'base64' to send a base64 string as bytes; objects are sent as JSON.\",\"type\":\"object\",\"sortOrder\":10,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null}],\"outputFields\":[{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"http-request\",\"name\":\"http-request\",\"displayName\":\"HTTP Request\",\"description\":\"\",\"type\":\"Generatedhttp-request\",\"sortOrder\":null,\"format\":null,\"mask\":null,\"defaultValue\":null,\"primaryKey\":false,\"lookup\":null,\"enum\":null,\"design\":null,\"fieldActions\":null,\"searchable\":false,\"searchableOperators\":null,\"searchableNames\":null,\"searchableJoins\":null,\"required\":false,\"request\":false,\"response\":true,\"responseCurated\":false,\"fieldLocation\":\"output\",\"onCanvas\":null,\"isJitField\":true,\"isFieldActionParent\":false,\"isMainResponseField\":true,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null}],\"jitTypeNeedsRefresh\":false,\"jitInputField\":{\"typeScriptDefinition\":\"{\\\"authentication\\\":string;\\\"body\\\":object;\\\"connection\\\":string;\\\"headers\\\":object;\\\"method\\\":string;\\\"multipartFormData\\\":object;\\\"path\\\":string;\\\"query\\\":object;\\\"requestBodyType\\\":string;\\\"targetConnector\\\":string;\\\"url\\\":string}\",\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"in_http-request\",\"name\":\"http-request\",\"displayName\":\"HTTP Request\",\"description\":\"'HTTP Request' input object\",\"type\":\"Generatedhttp-request\",\"sortOrder\":null,\"format\":null,\"mask\":null,\"defaultValue\":\"{\\n  \\\"authentication\\\": null,\\n  \\\"body\\\": null,\\n  \\\"connection\\\": null,\\n  \\\"headers\\\": null,\\n  \\\"method\\\": null,\\n  \\\"multipartFormData\\\": null,\\n  \\\"path\\\": null,\\n  \\\"query\\\": null,\\n  \\\"requestBodyType\\\": null,\\n  \\\"targetConnector\\\": null,\\n  \\\"url\\\": null\\n}\",\"primaryKey\":false,\"lookup\":null,\"enum\":null,\"design\":null,\"fieldActions\":null,\"searchable\":false,\"searchableOperators\":null,\"searchableNames\":null,\"searchableJoins\":null,\"required\":true,\"request\":false,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"jitObjectInput\",\"onCanvas\":null,\"isJitField\":true,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},\"inputMode\":null,\"searchableFields\":[],\"hasUnifiedTypes\":true,\"jitTypeHash\":null}}}",
+          "uiPathActivityTypeId": "5c4cc855-b42a-37e6-b910-de8588998fce",
+          "errorState": {
+            "issues": []
+          },
+          "telemetryData": {
+            "connectorKey": "uipath-uipath-http",
+            "connectorName": "HTTP",
+            "operationType": "create",
+            "objectName": "http-request",
+            "objectDisplayName": "HTTP Request",
+            "primaryKeyName": ""
+          }
+        },
+        "defaultBranch": {
+          "enabled": true,
+          "label": ""
+        }
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "description": "HTTP response object",
+          "source": "=response",
+          "var": "output",
+          "properties": {
+            "body": {
+              "type": "object",
+              "description": "Response body, deserialized by Integration Service",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "chunks_indexed": {
+                  "type": "number"
+                }
+              }
+            },
+            "code": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "schema": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "integer",
+                "description": "HTTP status code"
+              },
+              "headers": {
+                "type": "object",
+                "description": "Response headers"
+              },
+              "body": {
+                "description": "Response body"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "uniqueId": "a25c0657-137e-44b0-9af3-af0920b03b88"
+    },
+    {
+      "id": "AskUserQuery",
+      "type": "uipath.human-in-the-loop",
+      "typeVersion": "1.7",
+      "display": {
+        "label": "Ask User Query",
+        "subLabel": "",
+        "icon": "users"
+      },
+      "inputs": {
+        "type": "quick",
+        "title": "Data source embedded and stored in Qdrant successfully. What is your query?",
+        "priority": "Low",
+        "recipient": {
+          "channels": [
+            "Email",
+            "ActionCenter"
+          ],
+          "connections": {},
+          "assignee": {
+            "type": "group"
+          }
+        },
+        "schema": {
+          "schemaId": "eaa75e5e-56b6-5c38-aee7-f36e5198869d",
+          "fields": [
+            {
+              "id": "Query",
+              "label": "Query",
+              "type": "string",
+              "direction": "inOut",
+              "binding": "=js:''",
+              "required": true,
+              "controlType": "textarea"
+            }
+          ],
+          "outcomes": [
+            {
+              "id": "submit",
+              "name": "Submit",
+              "type": "string",
+              "isPrimary": true,
+              "action": "Continue"
+            }
+          ]
+        }
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "description": "Task result data",
+          "descriptionKey": "hitlOutputBuilder_taskResultData_description",
+          "source": "=result",
+          "var": "output",
+          "properties": {
+            "Query": {
+              "type": "string"
+            },
+            "Action": {
+              "type": "string",
+              "enum": [
+                "Submit"
+              ],
+              "default": "Submit"
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "Task completion status",
+          "descriptionKey": "hitlOutputBuilder_taskCompletionStatus_description",
+          "source": "=result.Action",
+          "var": "status",
+          "enum": [
+            "Submit"
+          ],
+          "default": "Submit"
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "uniqueId": "5c5fadef-4adb-4245-b671-b385e3a6ce0f"
+    },
+    {
+      "id": "RetrieveContextFromQdrant",
+      "type": "core.action.http.v2",
+      "typeVersion": "2.6",
+      "display": {
+        "label": "Retrieve Context from Qdrant",
+        "subLabel": "",
+        "icon": "https://cloud.uipath.com/elements_/scaleunit_/58cb4f17-4581-4130-a2ae-52448b37dc03/v3/element/elements/uipath-uipath-http/image"
+      },
+      "inputs": {
+        "branches": [],
+        "timeout": "PT15M",
+        "retryCount": 0,
+        "detail": {
+          "connector": "uipath-uipath-http",
+          "connectionId": "ImplicitConnection",
+          "connectionResourceId": null,
+          "connectionFolderKey": null,
+          "method": "POST",
+          "endpoint": "/http-request",
+          "bodyParameters": {
+            "authentication": "manual",
+            "method": "POST",
+            "url": "https://YOUR_PUBLIC_API_HOST/retrieve",
+            "requestBodyType": "raw",
+            "body": "=js:({\n        query: $vars.var_UserQuery,\n        top_k: 5\n      })",
+            "headers": {
+              "Content-Type": "application/json"
+            }
+          },
+          "objectName": "http-request",
+          "configuration": "=jsonString:{\"essentialConfiguration\":{\"responseAsFile\":false,\"connectorVersion\":\"1.5.4\",\"scriptRef\":null,\"customFieldsRequestDetails\":null,\"instanceParameters\":{\"connectorKey\":\"uipath-uipath-http\",\"objectName\":\"http-request\",\"httpMethod\":\"POST\",\"activityType\":\"Curated\",\"version\":\"1.0.0\"},\"objectName\":\"http-request\",\"operation\":\"create\",\"packageVersion\":\"1.0.0\",\"httpMethod\":\"POST\",\"path\":\"/http-request\",\"unifiedTypesCompatible\":true,\"savedJitInputFieldId\":\"in_http-request\"},\"optionalConfiguration\":{\"_textBlocks\":[{\"name\":\"contentTypeNotice\",\"text\":\"The content-type header must be application/json.\",\"position\":\"above\"}],\"objectActions\":[],\"connectorName\":\"HTTP\",\"agentIdentity\":null,\"maxPageSize\":100,\"jobArguments\":null,\"isAutopilotInvalidConfig\":false,\"additionalHeaders\":null,\"cachedLookupValues\":[],\"cachedBrowserItems\":[],\"cachedPropertyMappings\":[],\"primaryKeys\":[],\"objectDisplayName\":\"HTTP Request\",\"eventMode\":null,\"eventOperation\":null,\"hasBreakingChanges\":false,\"fieldsContainer\":{\"outputTypeDefinition\":\"{\\\"body\\\":object;\\\"code\\\":number;\\\"method\\\":string;\\\"rawStringBody\\\":string;\\\"request\\\":{\\\"headers\\\":object;\\\"methodType\\\":string;\\\"query\\\":object;\\\"type\\\":string;\\\"url\\\":string}}\",\"outputJsonSchema\":{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"type\":\"object\",\"properties\":{\"method\":{\"title\":\"Method\",\"type\":\"string\",\"description\":\"Specifies the HTTP method to be used for the request.\"},\"body\":{\"title\":\"Body\",\"$ref\":\"#/definitions/body\"},\"code\":{\"title\":\"Code\",\"type\":\"integer\",\"description\":\"The Code\"},\"rawStringBody\":{\"title\":\"Raw body\",\"type\":\"string\",\"description\":\"The Raw string body\"},\"request\":{\"title\":\"Request\",\"$ref\":\"#/definitions/request\"}},\"definitions\":{\"body\":{\"type\":\"object\",\"properties\":{}},\"request\":{\"type\":\"object\",\"properties\":{\"type\":{\"title\":\"Request type\",\"type\":\"string\",\"description\":\"The Request type\"},\"url\":{\"title\":\"Request url\",\"type\":\"string\",\"description\":\"The Request url\"},\"methodType\":{\"title\":\"Method\",\"type\":\"string\",\"description\":\"The Request method type\"}}}}},\"hasFileOutput\":false,\"populateOutputFields\":true,\"inputFields\":[{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"authentication\",\"name\":\"authentication\",\"displayName\":\"Authentication\",\"description\":\"Authentication\",\"type\":\"string\",\"sortOrder\":1,\"defaultValue\":\"manual\",\"primaryKey\":false,\"enum\":[{\"name\":\"Manual authentication\",\"value\":\"manual\",\"description\":\"Provide authentication details directly in the request\"},{\"name\":\"Connector based authentication\",\"value\":\"connector\",\"description\":\"Use authentication details from a configured connector\"}],\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"showMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]},{\"actionType\":\"clearMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]}],\"textBlocks\":[{\"name\":\"contentTypeNotice\",\"text\":\"The content-type header must be application/json.\",\"position\":\"above\"}],\"validation\":false},\"fieldActions\":[{\"actionType\":\"showMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]},{\"actionType\":\"clearMessages\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false}],\"messages\":[\"contentTypeNotice\"]}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"targetConnector\",\"name\":\"targetConnector\",\"displayName\":\"Connector\",\"description\":\"Select a connector\",\"type\":\"string\",\"sortOrder\":2,\"primaryKey\":false,\"lookup\":{\"objectName\":\"connectors\",\"lookupNames\":[\"name\"],\"lookupValue\":\"key\",\"path\":\"/Connectors?hasHttpRequest=true\",\"orderBy\":\"NONE\",\"defaultLookupValues\":[{\"name\":\"HTTP\",\"key\":\"uipath-uipath-http\",\"priority\":1,\"isDefault\":true,\"description\":\"UiPath HTTP connector for general API requests\"}]},\"design\":{\"component\":\"Connectors\",\"loadByDefault\":true,\"isMultiSelect\":false,\"enableUserOverride\":false,\"displayPattern\":\"{name}\",\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"solutionResourceKind\":\"connector\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"connection\",\"name\":\"connection\",\"displayName\":\"Connection\",\"description\":\"Connections\",\"type\":\"string\",\"sortOrder\":3,\"primaryKey\":false,\"design\":{\"component\":\"Connections\",\"loadByDefault\":true,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"refFieldValues\":[\"*\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"solutionResourceKind\":\"connection\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false},{\"type\":\"field\",\"refFieldName\":\"targetConnector\",\"refFieldValues\":[\"*\"],\"isCleared\":true,\"isVariable\":false}]},{\"rules\":[{\"refFieldName\":\"targetConnector\",\"refFieldValues\":[\"*\"],\"isCleared\":false,\"isConstantValue\":false,\"isWorkflowExpression\":false}],\"actionType\":\"grabValue\",\"groupNames\":[],\"messages\":null}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"method\",\"name\":\"method\",\"displayName\":\"Method\",\"description\":\"Specifies the HTTP method to be used for the request.\",\"type\":\"string\",\"sortOrder\":4,\"defaultValue\":\"GET\",\"primaryKey\":false,\"enum\":[{\"name\":\"GET\",\"value\":\"GET\"},{\"name\":\"POST\",\"value\":\"POST\"},{\"name\":\"PUT\",\"value\":\"PUT\"},{\"name\":\"PATCH\",\"value\":\"PATCH\"},{\"name\":\"DELETE\",\"value\":\"DELETE\"},{\"name\":\"OPTIONS\",\"value\":\"OPTIONS\"},{\"name\":\"HEAD\",\"value\":\"HEAD\"}],\"design\":{\"loadByDefault\":true,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"position\":\"primary\",\"validation\":false},\"fieldActions\":null,\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":true,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"url\",\"name\":\"url\",\"displayName\":\"URL\",\"description\":\"The web address where the HTTP request is sent.\",\"type\":\"string\",\"sortOrder\":5,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":true,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"path\",\"name\":\"path\",\"displayName\":\"Path\",\"description\":\"The endpoint path for the REST API request.\",\"type\":\"string\",\"sortOrder\":5,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"headers\",\"name\":\"headers\",\"displayName\":\"Headers\",\"description\":\"Headers\",\"type\":\"object\",\"sortOrder\":6,\"primaryKey\":false,\"design\":{\"component\":\"Dictionary\",\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"position\":\"primary\",\"dictionaryWidget\":{\"windowTitle\":\"\",\"windowDescription\":\"\",\"columnKeyTitle\":\"\",\"columnKeyDescription\":\"\",\"columnKeyHint\":\"\",\"columnValueTitle\":\"\",\"columnValueDescription\":\"\",\"columnValueHint\":\"\"},\"validation\":false},\"fieldActions\":null,\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":true,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"query\",\"name\":\"query\",\"displayName\":\"Query parameters\",\"description\":\"Query parameters\",\"type\":\"object\",\"sortOrder\":7,\"primaryKey\":false,\"design\":{\"component\":\"Dictionary\",\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"position\":\"primary\",\"dictionaryWidget\":{\"windowTitle\":\"\",\"windowDescription\":\"\",\"columnKeyTitle\":\"\",\"columnKeyDescription\":\"\",\"columnKeyHint\":\"\",\"columnValueTitle\":\"\",\"columnValueDescription\":\"\",\"columnValueHint\":\"\"},\"validation\":false},\"fieldActions\":null,\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":true,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"requestBodyType\",\"name\":\"requestBodyType\",\"displayName\":\"Request body type\",\"description\":\"Determines how the request body is encoded. Available for manual authentication only; connector-based requests remain JSON.\",\"type\":\"string\",\"sortOrder\":8,\"defaultValue\":\"raw\",\"primaryKey\":false,\"enum\":[{\"name\":\"Raw\",\"value\":\"raw\",\"description\":\"Send the body as-is using the Content-Type header (e.g. JSON, XML, plain text).\"},{\"name\":\"Multipart form data\",\"value\":\"multipartFormData\",\"description\":\"Send one or more form-data parts encoded as multipart/form-data.\"}],\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":true,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"String\",\"assemblyQualifiedName\":\"String\",\"isValueType\":true},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"body\",\"name\":\"body\",\"displayName\":\"Body\",\"description\":\"Contains the data to be sent with the HTTP request.\",\"type\":\"object\",\"sortOrder\":9,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"GET\",\"HEAD\",\"OPTIONS\",\"DELETE\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"method\",\"refFieldValues\":[\"POST\",\"PATCH\",\"PUT\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":true,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"multipartFormData\",\"name\":\"multipartFormData\",\"displayName\":\"Form data parts\",\"description\":\"Multipart form-data parts. Provide a list of parts; each part is an object with 'name' (required), 'value' (required), and optional 'filename', 'contentType' and 'encoding'. A value that is an attachment reference is sent as a file; set encoding to 'base64' to send a base64 string as bytes; objects are sent as JSON.\",\"type\":\"object\",\"sortOrder\":10,\"primaryKey\":false,\"design\":{\"loadByDefault\":false,\"isMultiSelect\":false,\"enableUserOverride\":false,\"isHidden\":false,\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"position\":\"primary\",\"validation\":false},\"fieldActions\":[{\"actionType\":\"show\",\"priorityOrder\":1,\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"manual\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true},{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"multipartFormData\"],\"isCleared\":false,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"requestBodyType\",\"refFieldValues\":[\"raw\"],\"isCleared\":true,\"isVariable\":false,\"isWorkflowExpression\":true}]},{\"actionType\":\"hide\",\"rules\":[{\"type\":\"field\",\"refFieldName\":\"authentication\",\"refFieldValues\":[\"connector\"],\"isCleared\":true,\"isVariable\":false}]}],\"searchable\":false,\"searchableJoins\":null,\"required\":false,\"request\":true,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"body\",\"onCanvas\":null,\"isJitField\":false,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null}],\"outputFields\":[{\"typeScriptDefinition\":null,\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"http-request\",\"name\":\"http-request\",\"displayName\":\"HTTP Request\",\"description\":\"\",\"type\":\"Generatedhttp-request\",\"sortOrder\":null,\"format\":null,\"mask\":null,\"defaultValue\":null,\"primaryKey\":false,\"lookup\":null,\"enum\":null,\"design\":null,\"fieldActions\":null,\"searchable\":false,\"searchableOperators\":null,\"searchableNames\":null,\"searchableJoins\":null,\"required\":false,\"request\":false,\"response\":true,\"responseCurated\":false,\"fieldLocation\":\"output\",\"onCanvas\":null,\"isJitField\":true,\"isFieldActionParent\":false,\"isMainResponseField\":true,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null}],\"jitTypeNeedsRefresh\":false,\"jitInputField\":{\"typeScriptDefinition\":\"{\\\"authentication\\\":string;\\\"body\\\":object;\\\"connection\\\":string;\\\"headers\\\":object;\\\"method\\\":string;\\\"multipartFormData\\\":object;\\\"path\\\":string;\\\"query\\\":object;\\\"requestBodyType\\\":string;\\\"targetConnector\\\":string;\\\"url\\\":string}\",\"useUrlInput\":false,\"resolvedUrl\":null,\"id\":\"in_http-request\",\"name\":\"http-request\",\"displayName\":\"HTTP Request\",\"description\":\"'HTTP Request' input object\",\"type\":\"Generatedhttp-request\",\"sortOrder\":null,\"format\":null,\"mask\":null,\"defaultValue\":\"{\\n  \\\"authentication\\\": null,\\n  \\\"body\\\": null,\\n  \\\"connection\\\": null,\\n  \\\"headers\\\": null,\\n  \\\"method\\\": null,\\n  \\\"multipartFormData\\\": null,\\n  \\\"path\\\": null,\\n  \\\"query\\\": null,\\n  \\\"requestBodyType\\\": null,\\n  \\\"targetConnector\\\": null,\\n  \\\"url\\\": null\\n}\",\"primaryKey\":false,\"lookup\":null,\"enum\":null,\"design\":null,\"fieldActions\":null,\"searchable\":false,\"searchableOperators\":null,\"searchableNames\":null,\"searchableJoins\":null,\"required\":true,\"request\":false,\"response\":false,\"responseCurated\":false,\"fieldLocation\":\"jitObjectInput\",\"onCanvas\":null,\"isJitField\":true,\"isFieldActionParent\":false,\"isMainResponseField\":false,\"isMethodParameter\":false,\"isBackgroundField\":false,\"filterTree\":null,\"filterNeedsRefresh\":null,\"arrayInputPaths\":null,\"clrType\":{\"_elementType\":null,\"_isNullable\":false,\"isArray\":false,\"genericTypeArguments\":[],\"fullName\":null,\"name\":\"Object\",\"assemblyQualifiedName\":\"Object\",\"isValueType\":false},\"forceExpressionEditor\":false,\"requiredGroups\":null,\"disableExpressions\":false,\"backingField\":null,\"searchableDisplayName\":null,\"selectedResourceId\":null},\"inputMode\":null,\"searchableFields\":[],\"hasUnifiedTypes\":true,\"jitTypeHash\":null}}}",
+          "uiPathActivityTypeId": "5c4cc855-b42a-37e6-b910-de8588998fce",
+          "errorState": {
+            "issues": []
+          },
+          "telemetryData": {
+            "connectorKey": "uipath-uipath-http",
+            "connectorName": "HTTP",
+            "operationType": "create",
+            "objectName": "http-request",
+            "objectDisplayName": "HTTP Request",
+            "primaryKeyName": ""
+          }
+        },
+        "defaultBranch": {
+          "enabled": true,
+          "label": ""
+        }
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "description": "HTTP response object",
+          "source": "=response",
+          "var": "output",
+          "properties": {
+            "body": {
+              "type": "object",
+              "description": "Response body, deserialized by Integration Service",
+              "properties": {
+                "chunks": {
+                  "type": "array"
+                }
+              }
+            },
+            "code": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "schema": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "integer",
+                "description": "HTTP status code"
+              },
+              "headers": {
+                "type": "object",
+                "description": "Response headers"
+              },
+              "body": {
+                "description": "Response body"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "uniqueId": "7fc8d838-a4b3-4ab2-9b06-05bc0d1c1a13"
+    },
+    {
+      "id": "RAGAnswerAgent",
+      "type": "uipath.agent.autonomous",
+      "typeVersion": "1.4",
+      "display": {
+        "label": "RAG Answer Agent",
+        "subLabel": "",
+        "icon": "autonomous-agent"
+      },
+      "inputs": {
+        "systemPrompt": "Answer strictly from the supplied retrieved chunks. Do not use outside knowledge. If the answer is not supported by the chunks, say that the provided context does not contain the answer. Cite factual claims using exactly [document_name, Page/Row X], using the document_name and page_number from a chunk. Return a result conforming to the output schema. answer: the cited answer.",
+        "userPrompt": "Retrieved chunks:\n{{ $vars.var_RetrievedChunks }}\n\nQuestion:\n{{ $vars.var_UserQuery }}",
+        "model": "gpt-5.4",
+        "mode": "standard",
+        "temperature": 0,
+        "maxTokenPerResponse": 16384,
+        "maxIterations": 25,
+        "isConversational": false,
+        "guardrails": [],
+        "name": "RAGAnswerAgent",
+        "agentInputVariables": [
+          {
+            "id": "var_RetrievedChunks",
+            "type": "string",
+            "binding": "=js:$vars.var_RetrievedChunks"
+          },
+          {
+            "id": "var_UserQuery",
+            "type": "string",
+            "binding": "=js:$vars.var_UserQuery"
+          }
+        ],
+        "agentOutputVariables": [
+          {
+            "id": "answer",
+            "type": "string"
+          }
+        ],
+        "source": "ea679537-0708-47ab-9eb9-beab0f743517",
+        "modelMaxTokens": 128000
+      },
+      "outputs": {
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "uniqueId": "134715ca-9aee-4f1d-9fe8-f5ef9bc2d159"
+    },
+    {
+      "id": "EndEvent",
+      "type": "core.control.end",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "EndEvent",
+        "icon": "circle-check"
+      },
+      "inputs": {},
+      "outputs": {
+        "out_FinalAnswer": {
+          "type": "string",
+          "description": "",
+          "source": {
+            "type": "jsExpression",
+            "expression": "$vars.var_FinalAnswer",
+            "fieldType": "string"
+          },
+          "var": "out_FinalAnswer"
+        },
+        "var_IngestionStatus": {
+          "type": "object",
+          "description": "",
+          "source": {
+            "type": "jsExpression",
+            "expression": "$vars.var_IngestionStatus",
+            "fieldType": "object"
+          },
+          "var": "var_IngestionStatus"
+        },
+        "var_RetrievedChunks": {
+          "type": "array",
+          "description": "",
+          "source": {
+            "type": "jsExpression",
+            "expression": "$vars.var_RetrievedChunks",
+            "fieldType": "array"
+          },
+          "var": "var_RetrievedChunks"
+        },
+        "var_FinalAnswer": {
+          "type": "string",
+          "description": "",
+          "source": {
+            "type": "jsExpression",
+            "expression": "$vars.var_FinalAnswer",
+            "fieldType": "string"
+          },
+          "var": "var_FinalAnswer"
+        },
+        "var_UserQuery": {
+          "type": "string",
+          "description": "",
+          "source": {
+            "type": "jsExpression",
+            "expression": "$vars.var_UserQuery",
+            "fieldType": "string"
+          },
+          "var": "var_UserQuery"
+        }
+      },
+      "uniqueId": "b25f4766-b1df-4d54-8b63-4ccfced5c0ed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_0",
+      "sourceNodeId": "ManualTrigger",
+      "sourcePort": "output",
+      "targetNodeId": "EmbedAndStoreInQdrant",
+      "targetPort": "input"
+    },
+    {
+      "id": "edge_1",
+      "sourceNodeId": "EmbedAndStoreInQdrant",
+      "sourcePort": "default",
+      "targetNodeId": "AskUserQuery",
+      "targetPort": "input"
+    },
+    {
+      "id": "edge_2",
+      "sourceNodeId": "AskUserQuery",
+      "sourcePort": "outcome-submit",
+      "targetNodeId": "RetrieveContextFromQdrant",
+      "targetPort": "input"
+    },
+    {
+      "id": "edge_3",
+      "sourceNodeId": "RetrieveContextFromQdrant",
+      "sourcePort": "default",
+      "targetNodeId": "RAGAnswerAgent",
+      "targetPort": "input"
+    },
+    {
+      "id": "edge_4",
+      "sourceNodeId": "RAGAnswerAgent",
+      "sourcePort": "success",
+      "targetNodeId": "EndEvent",
+      "targetPort": "input"
+    }
+  ],
+  "definitions": [
+    {
+      "nodeType": "core.trigger.manual",
+      "version": "1.0",
+      "category": "trigger",
+      "description": "Start the process manually",
+      "tags": [
+        "trigger",
+        "start",
+        "manual"
+      ],
+      "sortOrder": 80,
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:StartEvent",
+        "entryPointId": true
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "change-trigger-type",
+              "icon": "square-mouse-pointer",
+              "label": "Change trigger type"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "nodeType": "core.action.http.v2",
+      "version": "2.6",
+      "category": "connector",
+      "description": "HTTP request with managed authentication",
+      "tags": [
+        "connector",
+        "http",
+        "api",
+        "rest",
+        "request"
+      ],
+      "sortOrder": 21,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "HTTP Request",
+        "icon": "https://cloud.uipath.com/elements_/scaleunit_/58cb4f17-4581-4130-a2ae-52448b37dc03/v3/element/elements/uipath-uipath-http/image"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input",
+              "label": ""
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "branch-{item.id}",
+              "type": "source",
+              "handleType": "output",
+              "label": "{item.name}",
+              "repeat": "inputs.branches"
+            },
+            {
+              "id": "default",
+              "type": "source",
+              "handleType": "output",
+              "label": "{inputs.defaultBranch.label}",
+              "visible": "{inputs.branches.length === 0 || inputs.defaultBranch.enabled !== false}"
+            },
+            {
+              "id": "error",
+              "label": "Error",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.errorHandlingEnabled}",
+              "constraints": {
+                "maxConnections": 1
+              }
+            }
+          ],
+          "visible": true
+        },
+        {
+          "position": "top",
+          "customPositionAndOffsets": {
+            "right": 36,
+            "width": 22
+          },
+          "handles": [
+            {
+              "id": "timeout",
+              "label": "Timeout",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.timeLimitEnabled}",
+              "labelVisibility": "hover"
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "debug": {
+        "runtime": "bpmnEngine"
+      },
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Intsvc.UnifiedHttpRequest",
+        "context": [
+          {
+            "name": "connectorKey",
+            "type": "string",
+            "value": "uipath-uipath-http"
+          },
+          {
+            "name": "objectName",
+            "type": "string",
+            "value": "http-request"
+          },
+          {
+            "name": "connection",
+            "type": "string",
+            "value": "<bindings.uipath-uipath-http connection>"
+          },
+          {
+            "name": "folderKey",
+            "type": "string",
+            "value": "<bindings.FolderKey>"
+          },
+          {
+            "name": "activityConfigurationVersion",
+            "type": "string",
+            "value": "v1"
+          },
+          {
+            "name": "metadata",
+            "body": {
+              "telemetryData": {
+                "connectorKey": "uipath-uipath-http",
+                "connectorName": "HTTP Request"
+              },
+              "inputMetadata": {},
+              "errorState": {
+                "hasError": true
+              }
+            },
+            "type": "json"
+          }
+        ],
+        "expansion": {
+          "processLevelVariables": [
+            {
+              "id": "{nodeId}.output",
+              "name": "output",
+              "type": "jsonSchema",
+              "elementId": "{nodeId}",
+              "custom": true
+            },
+            {
+              "condition": "hasEdgeFromHandle('error')",
+              "id": "{nodeId}.error",
+              "name": "error",
+              "type": "jsonSchema",
+              "elementId": "{nodeId}",
+              "custom": true
+            }
+          ],
+          "nodes": [
+            {
+              "id": "{nodeId}",
+              "type": "bpmn:SubProcess",
+              "replaceOriginal": true,
+              "data": {
+                "label": "{node.data.label}",
+                "isExpanded": true,
+                "model": {
+                  "serviceType": "BPMN.Variables",
+                  "subprocessVariables": {
+                    "inputOutputs": [
+                      {
+                        "id": "response",
+                        "name": "response",
+                        "type": "jsonSchema",
+                        "variableType": "inputOutput"
+                      },
+                      {
+                        "id": "error",
+                        "name": "error",
+                        "type": "jsonSchema",
+                        "variableType": "inputOutput"
+                      }
+                    ]
+                  },
+                  "outputs": [
+                    {
+                      "name": "output",
+                      "type": "jsonSchema",
+                      "source": "=vars.response",
+                      "var": "{nodeId}.output",
+                      "custom": true
+                    },
+                    {
+                      "name": "error",
+                      "type": "jsonSchema",
+                      "source": "=vars.error",
+                      "var": "{nodeId}.error",
+                      "custom": true
+                    }
+                  ]
+                }
+              },
+              "nodes": [
+                {
+                  "id": "_Implicit_StartEvent_{nodeId}",
+                  "type": "bpmn:StartEvent",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "data": {
+                    "label": "HTTP Request Start"
+                  }
+                },
+                {
+                  "id": "_Implicit_HttpTask_{nodeId}",
+                  "type": "bpmn:SendTask",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "propagate": {
+                    "detail": true,
+                    "retry": {
+                      "condition": "node.data.inputs.retryCount > 0",
+                      "maxRetryCount": "node.data.inputs.retryCount",
+                      "retryBackoff": "node.data.inputs.timeout",
+                      "retryBackoffDefault": "PT1S",
+                      "retryAllErrors": "true",
+                      "retryBackoffType": "Static"
+                    }
+                  },
+                  "data": {
+                    "label": "{node.data.label}",
+                    "model": {
+                      "serviceType": "Intsvc.UnifiedHttpRequest",
+                      "context": [
+                        {
+                          "name": "connectorKey",
+                          "type": "string",
+                          "value": "uipath-uipath-http"
+                        },
+                        {
+                          "name": "objectName",
+                          "type": "string",
+                          "value": "http-request"
+                        },
+                        {
+                          "name": "connection",
+                          "type": "string",
+                          "value": "<bindings.uipath-uipath-http connection>"
+                        },
+                        {
+                          "name": "folderKey",
+                          "type": "string",
+                          "value": "<bindings.FolderKey>"
+                        },
+                        {
+                          "name": "activityConfigurationVersion",
+                          "type": "string",
+                          "value": "v1"
+                        },
+                        {
+                          "name": "metadata",
+                          "body": {
+                            "telemetryData": {
+                              "connectorKey": "uipath-uipath-http",
+                              "connectorName": "HTTP Request"
+                            },
+                            "inputMetadata": {},
+                            "errorState": {
+                              "hasError": true
+                            }
+                          },
+                          "type": "json"
+                        }
+                      ],
+                      "outputs": [
+                        {
+                          "name": "response",
+                          "type": "json",
+                          "source": "=response",
+                          "var": "response",
+                          "internal": true
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": "_Implicit_Gateway_{nodeId}",
+                  "type": "bpmn:ExclusiveGateway",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "condition": "node.data.inputs.branches.length > 0",
+                  "data": {
+                    "label": "Response branch",
+                    "defaultFlowId": "_Implicit_Edge__Implicit_Gateway_{nodeId}__Implicit_EndEvent_Default_{nodeId}"
+                  }
+                },
+                {
+                  "forEach": "node.data.inputs.branches",
+                  "id": "_Implicit_EndEvent_{branchName}_{nodeId}",
+                  "type": "bpmn:EndEvent",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "data": {
+                    "label": "{branch.name}"
+                  }
+                },
+                {
+                  "id": "_Implicit_EndEvent_Default_{nodeId}",
+                  "type": "bpmn:EndEvent",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "data": {
+                    "label": "{defaultBranchLabel}"
+                  }
+                },
+                {
+                  "condition": "hasEdgeFromHandle('error')",
+                  "id": "_Implicit_EndEvent_Failure_{nodeId}",
+                  "type": "bpmn:EndEvent",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "data": {
+                    "label": "Failure",
+                    "model": {
+                      "serviceType": "BPMN.Variables",
+                      "outputs": [
+                        {
+                          "name": "error",
+                          "type": "boolean",
+                          "source": "=true",
+                          "var": "error",
+                          "internal": true
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": "hasEdgeFromHandle('error')",
+                  "id": "_Implicit_BoundaryError_{nodeId}",
+                  "type": "bpmn:BoundaryEvent",
+                  "parentId": "{nodeId}",
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "data": {
+                    "label": "Error",
+                    "cancelActivity": false,
+                    "attachedToId": "_Implicit_HttpTask_{nodeId}",
+                    "eventDefinition": {
+                      "type": "bpmn:ErrorEventDefinition",
+                      "id": "_Implicit_BoundaryError_{nodeId}_Error"
+                    },
+                    "model": {
+                      "outputs": [
+                        {
+                          "name": "Error",
+                          "type": "jsonSchema",
+                          "source": "=Error",
+                          "var": "response",
+                          "internal": true
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "edges": [
+                {
+                  "id": "_Implicit_Edge__Implicit_StartEvent_{nodeId}__Implicit_HttpTask_{nodeId}",
+                  "source": "_Implicit_StartEvent_{nodeId}",
+                  "target": "_Implicit_HttpTask_{nodeId}",
+                  "type": "bpmn:SequenceFlow",
+                  "data": {}
+                },
+                {
+                  "condition": "node.data.inputs.branches.length === 0",
+                  "id": "_Implicit_Edge__Implicit_HttpTask_{nodeId}__Implicit_EndEvent_Default_{nodeId}",
+                  "source": "_Implicit_HttpTask_{nodeId}",
+                  "target": "_Implicit_EndEvent_Default_{nodeId}",
+                  "type": "bpmn:SequenceFlow",
+                  "data": {}
+                },
+                {
+                  "condition": "node.data.inputs.branches.length > 0",
+                  "id": "_Implicit_Edge__Implicit_HttpTask_{nodeId}__Implicit_Gateway_{nodeId}",
+                  "source": "_Implicit_HttpTask_{nodeId}",
+                  "target": "_Implicit_Gateway_{nodeId}",
+                  "type": "bpmn:SequenceFlow",
+                  "data": {}
+                },
+                {
+                  "forEach": "node.data.inputs.branches",
+                  "condition": "node.data.inputs.branches.length > 0",
+                  "id": "_Implicit_Edge__Implicit_Gateway_{nodeId}__Implicit_EndEvent_{branchName}_{nodeId}",
+                  "source": "_Implicit_Gateway_{nodeId}",
+                  "target": "_Implicit_EndEvent_{branchName}_{nodeId}",
+                  "type": "bpmn:SequenceFlow",
+                  "data": {
+                    "conditionExpression": "{branch.conditionExpression}",
+                    "label": "{branch.name}"
+                  }
+                },
+                {
+                  "condition": "node.data.inputs.branches.length > 0",
+                  "id": "_Implicit_Edge__Implicit_Gateway_{nodeId}__Implicit_EndEvent_Default_{nodeId}",
+                  "source": "_Implicit_Gateway_{nodeId}",
+                  "target": "_Implicit_EndEvent_Default_{nodeId}",
+                  "type": "bpmn:SequenceFlow",
+                  "data": {
+                    "label": "{defaultBranchLabel}"
+                  }
+                },
+                {
+                  "condition": "hasEdgeFromHandle('error')",
+                  "id": "_Implicit_Edge__Implicit_BoundaryError_{nodeId}__Implicit_EndEvent_Failure_{nodeId}",
+                  "source": "_Implicit_BoundaryError_{nodeId}",
+                  "target": "_Implicit_EndEvent_Failure_{nodeId}",
+                  "type": "bpmn:SequenceFlow",
+                  "data": {}
+                }
+              ]
+            },
+            {
+              "id": "_Implicit_PostSubprocessGateway_{nodeId}",
+              "type": "bpmn:ExclusiveGateway",
+              "condition": "(node.data.inputs.branches.length > 0 || hasEdgeFromHandle('error')) && originalEdges.length > 0",
+              "parentId": null,
+              "position": {
+                "x": 0,
+                "y": 0
+              },
+              "data": {
+                "label": "Post-Subprocess Branch"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "condition": "(node.data.inputs.branches.length > 0 || hasEdgeFromHandle('error')) && originalEdges.length > 0",
+              "id": "_Implicit_Edge_{nodeId}__Implicit_PostSubprocessGateway_{nodeId}",
+              "source": "{nodeId}",
+              "target": "_Implicit_PostSubprocessGateway_{nodeId}",
+              "type": "bpmn:SequenceFlow",
+              "data": {}
+            },
+            {
+              "forEach": "node.data.inputs.branches",
+              "condition": "node.data.inputs.branches.length > 0",
+              "matchOriginalEdgeByHandle": "branch-{branch.id}",
+              "preserveEdgeId": true,
+              "source": "_Implicit_PostSubprocessGateway_{nodeId}",
+              "type": "bpmn:SequenceFlow",
+              "data": {
+                "conditionExpression": "{branch.conditionExpression}",
+                "label": "{branch.name}"
+              }
+            },
+            {
+              "condition": "node.data.inputs.branches.length > 0 || hasEdgeFromHandle('error')",
+              "matchOriginalEdgeByHandle": "default",
+              "preserveEdgeId": true,
+              "source": "_Implicit_PostSubprocessGateway_{nodeId}",
+              "type": "bpmn:SequenceFlow",
+              "data": {
+                "label": "{defaultBranchLabel}"
+              }
+            },
+            {
+              "condition": "hasEdgeFromHandle('error')",
+              "matchOriginalEdgeByHandle": "error",
+              "preserveEdgeId": true,
+              "source": "_Implicit_PostSubprocessGateway_{nodeId}",
+              "type": "bpmn:SequenceFlow",
+              "data": {
+                "conditionExpression": "=js:vars.{nodeId}.error || vars.{nodeId}.output?.statusCode >= 400",
+                "label": "Error"
+              }
+            },
+            {
+              "condition": "node.data.inputs.branches.length === 0 && !hasEdgeFromHandle('error')",
+              "matchOriginalEdgeByHandle": "default",
+              "preserveEdgeId": true,
+              "source": "{nodeId}",
+              "type": "bpmn:SequenceFlow"
+            }
+          ]
+        }
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "branches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "conditionExpression": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "defaultBranch": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          },
+          "timeout": {
+            "type": "string",
+            "pattern": "^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+            "errorMessage": {
+              "pattern": "Timeout must be in ISO 8601 duration format (e.g., PT15M, PT1H, P1D)"
+            }
+          },
+          "retryCount": {
+            "type": "number"
+          }
+        }
+      },
+      "inputDefaults": {
+        "branches": [],
+        "defaultBranch": {
+          "enabled": true,
+          "label": ""
+        },
+        "timeout": "PT15M",
+        "retryCount": 0
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "HTTP response object",
+          "source": "=response",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "integer",
+                "description": "HTTP status code"
+              },
+              "headers": {
+                "type": "object",
+                "description": "Response headers"
+              },
+              "body": {
+                "description": "Response body"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "form": {
+        "id": "http-v2-properties",
+        "title": "HTTP Request",
+        "metadata": {
+          "propertyPanel": {
+            "tabs": [
+              {
+                "id": "branching",
+                "title": "Branching"
+              }
+            ],
+            "sectionTabs": {
+              "branches": "branching",
+              "advanced": "advanced"
+            }
+          }
+        },
+        "sections": [
+          {
+            "id": "http-config",
+            "title": "Configuration",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.dapHttpToolbar",
+                "type": "custom",
+                "component": "dap-http-toolbar",
+                "label": ""
+              },
+              {
+                "label": "",
+                "name": "inputs.detail",
+                "type": "custom",
+                "component": "dap-config",
+                "componentProps": {
+                  "connectorDetail": {
+                    "isAppActivity": false,
+                    "packageId": 196648,
+                    "svgIconUrl": "icons/0dad78c9d04c245b126d8edb4c451aa8a0d395d34731cf5702441f6284c70ccc.svg",
+                    "displayName": "HTTP Request",
+                    "assemblyQualifiedName": "UiPath.IntegrationService.Activities.Runtime.Activities.ConnectorActivity, UiPath.IntegrationService.Activities.Runtime, Version=1.22.0.0, Culture=neutral, PublicKeyToken=null",
+                    "description": "Use HTTP requests to interact with APIs via the selected connector and connection configuration.",
+                    "category": "",
+                    "activityColor": "#E56D5C",
+                    "configuration": "{\"connectorKey\":\"uipath-uipath-http\",\"objectName\":\"http-request\",\"httpMethod\":\"POST\",\"activityType\":\"Curated\",\"version\":\"1.0.0\"}",
+                    "uiPathActivityTypeId": "5c4cc855-b42a-37e6-b910-de8588998fce",
+                    "isExperimental": false,
+                    "helpUrlTemplate": "https://docs.uipath.com/{0}/activities/other/latest/integration-service/uipath-uipath-http-HTTP-Request",
+                    "isEnabled": true,
+                    "targetPlatform": "CrossPlatform",
+                    "isAdvanced": false,
+                    "isRestricted": false,
+                    "tags": [
+                      ""
+                    ]
+                  },
+                  "fixedValueEditors": {
+                    "body": "json"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "branches",
+            "title": "Branches",
+            "collapsible": true,
+            "defaultExpanded": false,
+            "fields": [
+              {
+                "name": "inputs.branches",
+                "type": "custom",
+                "component": "http-branch-editor",
+                "label": "Response branches",
+                "description": "Define conditional branches based on response status or properties",
+                "componentProps": {
+                  "expressionValidationFields": [
+                    {
+                      "subPath": "conditionExpression",
+                      "validationMode": "expression",
+                      "expectedType": "boolean"
+                    }
+                  ],
+                  "defaultBranchRow": true
+                }
+              }
+            ]
+          },
+          {
+            "id": "advanced",
+            "title": "Advanced",
+            "collapsible": true,
+            "defaultExpanded": false,
+            "fields": [
+              {
+                "name": "inputs.timeout",
+                "type": "text",
+                "label": "Timeout",
+                "description": "ISO 8601 duration format (for example, PT15M for 15 minutes, PT1H for 1 hour)"
+              },
+              {
+                "name": "inputs.retryCount",
+                "type": "number",
+                "label": "Retry count",
+                "description": "Number of times to retry on failure"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "nodeType": "uipath.human-in-the-loop",
+      "version": "1.7",
+      "category": "human-task",
+      "description": "Pause the process and wait for human task completion",
+      "tags": [
+        "human-task",
+        "hitl",
+        "human-in-the-loop",
+        "approval"
+      ],
+      "sortOrder": 50,
+      "display": {
+        "label": "Human Task — Quick Form / App",
+        "icon": "users",
+        "shape": "square"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ],
+          "visible": true
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "outcome-completed",
+              "label": "Completed",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:UserTask",
+        "serviceType": "Actions.HITL"
+      },
+      "inputDefaults": {
+        "type": "quick",
+        "schema": {
+          "fields": [],
+          "outcomes": [
+            {
+              "id": "submit",
+              "name": "Submit",
+              "type": "string",
+              "isPrimary": true,
+              "action": "Continue"
+            }
+          ]
+        },
+        "recipient": {
+          "channels": [
+            "Email",
+            "ActionCenter"
+          ],
+          "connections": {},
+          "assignee": {
+            "type": "user"
+          }
+        }
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Task result data",
+          "source": "=result",
+          "var": "output"
+        },
+        "status": {
+          "type": "string",
+          "description": "Task completion status (completed, cancelled, timeout)",
+          "source": "=result.Action",
+          "var": "status"
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "form": {
+        "id": "hitl-properties",
+        "title": "Human task configuration",
+        "sections": [
+          {
+            "id": "task-type",
+            "title": "Task Type",
+            "collapsible": false,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.type",
+                "type": "select",
+                "label": "Type",
+                "options": [
+                  {
+                    "label": "Quick Form",
+                    "value": "quick"
+                  },
+                  {
+                    "label": "Custom App",
+                    "value": "custom"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "assignment",
+            "title": "Assignment criteria",
+            "collapsible": false,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.recipient",
+                "type": "custom",
+                "component": "hitl-assignee-selector",
+                "label": "",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "id": "schema",
+            "title": "Schema",
+            "collapsible": true,
+            "defaultExpanded": false,
+            "fields": [
+              {
+                "name": "inputs.schema",
+                "type": "custom",
+                "component": "hitl-schema-editor",
+                "label": "Task Schema",
+                "description": "Define the input and output parameters for this task"
+              }
+            ]
+          },
+          {
+            "id": "delivery",
+            "title": "Delivery channels",
+            "collapsible": false,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.recipient",
+                "type": "custom",
+                "component": "hitl-channel-selector",
+                "label": "Delivery Channels",
+                "description": "Select where the task should be sent"
+              }
+            ]
+          },
+          {
+            "id": "additional-properties",
+            "title": "Additional properties",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.title",
+                "type": "text",
+                "label": "Task title"
+              },
+              {
+                "name": "inputs.priority",
+                "type": "select",
+                "label": "Priority",
+                "options": [
+                  {
+                    "label": "Low",
+                    "value": "Low"
+                  },
+                  {
+                    "label": "Medium",
+                    "value": "Medium"
+                  },
+                  {
+                    "label": "High",
+                    "value": "High"
+                  }
+                ]
+              },
+              {
+                "name": "inputs.labels",
+                "type": "text",
+                "label": "Labels",
+                "placeholder": "Comma-separated (e.g. finance,approval)"
+              },
+              {
+                "name": "inputs.memorySpace",
+                "type": "custom",
+                "component": "hitl-memory-space-picker",
+                "label": "Memory space",
+                "description": "Attach a memory space so this task's inputs and outputs are written to it"
+              }
+            ]
+          },
+          {
+            "id": "app",
+            "title": "Custom Approval App",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.app",
+                "type": "custom",
+                "component": "hitl-app-picker",
+                "label": "Action App",
+                "description": "Select the coded action app for this task"
+              },
+              {
+                "name": "inputs.appInputBindings",
+                "type": "custom",
+                "component": "hitl-app-inputs",
+                "label": "Inputs",
+                "description": "Map app inputs to expressions/variables"
+              }
+            ]
+          }
+        ]
+      },
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      }
+    },
+    {
+      "nodeType": "uipath.agent.autonomous",
+      "version": "1.4",
+      "category": "agent",
+      "description": "AI agent that completes tasks autonomously",
+      "tags": [
+        "agentic",
+        "ai",
+        "autonomous",
+        "agent"
+      ],
+      "sortOrder": 10,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "Autonomous agent",
+        "icon": "autonomous-agent",
+        "shape": "rectangle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "top",
+          "handles": [
+            {
+              "id": "escalation",
+              "type": "source",
+              "handleType": "artifact",
+              "label": "Escalations",
+              "showButton": true,
+              "constraints": {
+                "allowedTargets": [
+                  {
+                    "nodeType": "uipath.agent.resource.escalation"
+                  },
+                  {
+                    "nodeType": "uipath.agent.resource.escalation.*"
+                  }
+                ],
+                "validationMessage": "Only Agent Escalation nodes can connect here",
+                "addNodePanel": {
+                  "searchScope": "deep",
+                  "searchProviders": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "position": "bottom",
+          "handles": [
+            {
+              "id": "context",
+              "type": "source",
+              "handleType": "artifact",
+              "label": "Context",
+              "showButton": true,
+              "constraints": {
+                "allowedTargets": [
+                  {
+                    "nodeType": "uipath.agent.resource.context.*"
+                  }
+                ],
+                "validationMessage": "Only Context resource nodes can connect here",
+                "addNodePanel": {
+                  "searchScope": "deep",
+                  "searchProviders": [],
+                  "refreshOnFocus": "context",
+                  "createNewActions": [
+                    {
+                      "label": "Create new Context",
+                      "icon": "plus",
+                      "description": "Opens in a new tab",
+                      "urlTemplate": "/{org}/agents_/indexes/add",
+                      "categoryId": "context-grounding-indexes"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "id": "tool",
+              "type": "source",
+              "handleType": "artifact",
+              "label": "Tools",
+              "showButton": true,
+              "constraints": {
+                "allowedTargets": [
+                  {
+                    "nodeType": "uipath.agent.resource.tool.*"
+                  }
+                ],
+                "validationMessage": "Only Tool resource nodes can connect here",
+                "addNodePanel": {
+                  "searchScope": "deep",
+                  "searchProviders": [],
+                  "refreshOnFocus": "mcp",
+                  "createNewActions": [
+                    {
+                      "label": "Create new MCP server",
+                      "icon": "plus",
+                      "urlTemplate": "/{org}/{tenant}/orchestrator_/mcp",
+                      "categoryId": "agent.tool.mcp"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "success",
+              "type": "source",
+              "handleType": "output",
+              "isDefaultForType": true
+            },
+            {
+              "id": "error",
+              "label": "Error",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.errorHandlingEnabled}",
+              "constraints": {
+                "maxConnections": 1
+              }
+            }
+          ]
+        },
+        {
+          "position": "top",
+          "customPositionAndOffsets": {
+            "right": 36,
+            "width": 22
+          },
+          "handles": [
+            {
+              "id": "timeout",
+              "label": "Timeout",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.timeLimitEnabled}",
+              "labelVisibility": "hover"
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "form": {
+        "id": "settings-form",
+        "title": "Agent settings",
+        "metadata": {
+          "propertyPanel": {
+            "sectionTabs": {
+              "section-advanced": "advanced"
+            }
+          }
+        },
+        "mode": "onChange",
+        "reValidateMode": "onChange",
+        "sections": [
+          {
+            "id": "section-1",
+            "title": "Agent settings",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.mode",
+                "type": "custom",
+                "component": "agent-harness-picker",
+                "label": ""
+              },
+              {
+                "name": "inputs.model",
+                "type": "custom",
+                "component": "agent-model-picker",
+                "label": "Model",
+                "componentProps": {
+                  "placeholder": "gpt-4o-2024-11-20"
+                }
+              },
+              {
+                "name": "inputs.systemPrompt",
+                "type": "custom",
+                "component": "prompt-editor",
+                "label": "System prompt",
+                "componentProps": {
+                  "multiline": true,
+                  "minRows": 4,
+                  "maxRows": 20,
+                  "placeholder": "Enter the system prompt"
+                }
+              },
+              {
+                "name": "inputs.userPrompt",
+                "type": "custom",
+                "component": "prompt-editor",
+                "label": "User prompt",
+                "componentProps": {
+                  "multiline": true,
+                  "minRows": 3,
+                  "maxRows": 15,
+                  "placeholder": "Enter the user prompt"
+                }
+              }
+            ]
+          },
+          {
+            "id": "section-advanced",
+            "title": "Advanced settings",
+            "collapsible": true,
+            "defaultExpanded": false,
+            "fields": [
+              {
+                "name": "inputs.temperature",
+                "type": "slider",
+                "label": "Temperature",
+                "defaultValue": 0,
+                "min": 0,
+                "max": 1,
+                "step": 0.01
+              },
+              {
+                "name": "inputs.maxTokenPerResponse",
+                "type": "slider",
+                "label": "Maximum tokens per response",
+                "defaultValue": 16384,
+                "min": 0,
+                "step": 1,
+                "maxRef": {
+                  "fromField": "inputs.modelMaxTokens",
+                  "fallback": 16384
+                }
+              },
+              {
+                "name": "inputs.maxIterations",
+                "type": "slider",
+                "label": "Maximum iterations",
+                "defaultValue": 25,
+                "min": 1,
+                "max": 100,
+                "step": 1
+              }
+            ]
+          },
+          {
+            "id": "guardrails",
+            "collapsible": false,
+            "fields": [
+              {
+                "name": "inputs.guardrails",
+                "type": "custom",
+                "component": "guardrails-editor",
+                "label": "",
+                "componentProps": {
+                  "toolName": "Agent",
+                  "scope": "Agent"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "systemPrompt": {
+            "type": "string",
+            "minLength": 1,
+            "errorMessage": {
+              "minLength": "System prompt is required"
+            }
+          },
+          "userPrompt": {
+            "type": "string",
+            "minLength": 1,
+            "errorMessage": {
+              "minLength": "User prompt is required"
+            }
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1,
+            "errorMessage": {
+              "minLength": "Model is required"
+            }
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "advanced"
+            ]
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "maxTokenPerResponse": {
+            "type": "number",
+            "minimum": 0
+          },
+          "modelMaxTokens": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maxIterations": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "guardrails": {
+            "type": "array"
+          },
+          "agentInputVariables": {
+            "type": "array"
+          },
+          "agentOutputVariables": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "systemPrompt",
+          "userPrompt",
+          "model"
+        ]
+      },
+      "inputDefaults": {
+        "systemPrompt": "You are an agentic assistant.",
+        "userPrompt": "What is the current date?",
+        "model": "gpt-4o-2024-11-20",
+        "mode": "standard",
+        "agentInputVariables": [],
+        "agentOutputVariables": [
+          {
+            "id": "content",
+            "type": "string"
+          }
+        ]
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Agent response",
+          "var": "output",
+          "properties": {
+            "content": {
+              "type": "string",
+              "description": "The agent response text"
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "model": {
+        "source": true,
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.StartInlineAgentJob",
+        "version": "v2",
+        "context": [
+          {
+            "name": "_label",
+            "type": "string",
+            "value": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "value": ""
+          },
+          {
+            "name": "entryPoint",
+            "type": "string",
+            "value": ""
+          }
+        ]
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "core.control.end",
+      "version": "1.0",
+      "category": "control-flow",
+      "description": "Mark the end of a process path",
+      "tags": [
+        "control-flow",
+        "end",
+        "finish",
+        "complete"
+      ],
+      "sortOrder": 66,
+      "display": {
+        "label": "End",
+        "icon": "circle-check",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        }
+      ],
+      "model": {
+        "type": "bpmn:EndEvent"
+      }
+    }
+  ],
+  "variables": {
+    "globals": [
+      {
+        "id": "in_DataSourceType",
+        "direction": "in",
+        "type": "string",
+        "triggerNodeId": "ManualTrigger"
+      },
+      {
+        "id": "in_DataSourceValue",
+        "direction": "in",
+        "type": "string",
+        "triggerNodeId": "ManualTrigger"
+      },
+      {
+        "id": "out_FinalAnswer",
+        "direction": "out",
+        "type": "string"
+      },
+      {
+        "id": "var_IngestionStatus",
+        "direction": "inout",
+        "type": "object"
+      },
+      {
+        "id": "var_RetrievedChunks",
+        "direction": "inout",
+        "type": "array"
+      },
+      {
+        "id": "var_FinalAnswer",
+        "direction": "inout",
+        "type": "string"
+      },
+      {
+        "id": "var_UserQuery",
+        "direction": "inout",
+        "type": "string"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "ManualTrigger.output",
+        "type": "object",
+        "description": "Data passed when manually triggering the process.",
+        "binding": {
+          "nodeId": "ManualTrigger",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "EmbedAndStoreInQdrant.output",
+        "type": "object",
+        "description": "HTTP response object",
+        "binding": {
+          "nodeId": "EmbedAndStoreInQdrant",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "EmbedAndStoreInQdrant.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "EmbedAndStoreInQdrant",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "AskUserQuery.output",
+        "type": "object",
+        "description": "Task result data",
+        "binding": {
+          "nodeId": "AskUserQuery",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "AskUserQuery.status",
+        "type": "string",
+        "description": "Task completion status",
+        "binding": {
+          "nodeId": "AskUserQuery",
+          "outputId": "status"
+        }
+      },
+      {
+        "id": "RetrieveContextFromQdrant.output",
+        "type": "object",
+        "description": "HTTP response object",
+        "binding": {
+          "nodeId": "RetrieveContextFromQdrant",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "RetrieveContextFromQdrant.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "RetrieveContextFromQdrant",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "RAGAnswerAgent.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "answer": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Agent response",
+        "binding": {
+          "nodeId": "RAGAnswerAgent",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "RAGAnswerAgent.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "RAGAnswerAgent",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "EndEvent.out_FinalAnswer",
+        "type": "string",
+        "description": "",
+        "binding": {
+          "nodeId": "EndEvent",
+          "outputId": "out_FinalAnswer"
+        }
+      },
+      {
+        "id": "EndEvent.var_IngestionStatus",
+        "type": "object",
+        "description": "",
+        "binding": {
+          "nodeId": "EndEvent",
+          "outputId": "var_IngestionStatus"
+        }
+      },
+      {
+        "id": "EndEvent.var_RetrievedChunks",
+        "type": "array",
+        "description": "",
+        "binding": {
+          "nodeId": "EndEvent",
+          "outputId": "var_RetrievedChunks"
+        }
+      },
+      {
+        "id": "EndEvent.var_FinalAnswer",
+        "type": "string",
+        "description": "",
+        "binding": {
+          "nodeId": "EndEvent",
+          "outputId": "var_FinalAnswer"
+        }
+      },
+      {
+        "id": "EndEvent.var_UserQuery",
+        "type": "string",
+        "description": "",
+        "binding": {
+          "nodeId": "EndEvent",
+          "outputId": "var_UserQuery"
+        }
+      },
+      {
+        "id": "AskUserQuery.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "AskUserQuery",
+          "outputId": "error"
+        }
+      }
+    ],
+    "variableUpdates": {
+      "EmbedAndStoreInQdrant": [
+        {
+          "variableId": "var_IngestionStatus",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.EmbedAndStoreInQdrant.output",
+            "fieldType": "object"
+          }
+        }
+      ],
+      "AskUserQuery": [
+        {
+          "variableId": "var_UserQuery",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.AskUserQuery.output.Query",
+            "fieldType": "string"
+          }
+        }
+      ],
+      "RetrieveContextFromQdrant": [
+        {
+          "variableId": "var_RetrievedChunks",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.RetrieveContextFromQdrant.output.body.chunks",
+            "fieldType": "array"
+          }
+        }
+      ],
+      "RAGAnswerAgent": [
+        {
+          "variableId": "var_FinalAnswer",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.RAGAnswerAgent.output.answer",
+            "fieldType": "string"
+          }
+        }
+      ]
+    }
+  },
+  "bindings": [
+    {
+      "id": "bvI7xX7W1",
+      "name": "uipath-uipath-http connection",
+      "type": "string",
+      "resource": "connection",
+      "resourceKey": "",
+      "default": "ImplicitConnection",
+      "propertyAttribute": "ConnectionId"
+    },
+    {
+      "id": "bsiAH9IQg",
+      "name": "FolderKey",
+      "type": "string",
+      "resource": "connection",
+      "resourceKey": "",
+      "propertyAttribute": "FolderKey"
+    }
+  ],
+  "layout": {
+    "nodes": {
+      "ManualTrigger": {
+        "position": {
+          "x": 256,
+          "y": 144
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "EmbedAndStoreInQdrant": {
+        "position": {
+          "x": 448,
+          "y": 144
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "AskUserQuery": {
+        "position": {
+          "x": 640,
+          "y": 144
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "RetrieveContextFromQdrant": {
+        "position": {
+          "x": 832,
+          "y": 144
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "RAGAnswerAgent": {
+        "position": {
+          "x": 1024,
+          "y": 144
+        },
+        "size": {
+          "width": 288,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "EndEvent": {
+        "position": {
+          "x": 1408,
+          "y": 144
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      }
+    }
+  }
+}
